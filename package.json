@@ -1,0 +1,17 @@
+{
+  "name": "react-stepper",
+  "version": "1.0.0",
+  "description": "It is like an UIStepper in iOS.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "react-component"
+  ],
+  "author": {
+    "name": "wuct",
+    "email": "wuchingting@carpo.co"
+  },
+  "license": "ISC"
+}
