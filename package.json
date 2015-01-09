@@ -4,7 +4,10 @@
   "description": "It is like an UIStepper in iOS.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "npm run serve | npm run dev",
+    "serve": "./node_modules/.bin/http-server -p 8080",
+    "dev": "webpack-dev-server --progress --colors --port 8090"
   },
   "keywords": [
     "react-component"
@@ -13,5 +16,14 @@
     "name": "wuct",
     "email": "wuchingting@carpo.co"
   },
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "http-server": "^0.7.4",
+    "jsx-loader": "^0.12.2",
+    "webpack": "^1.4.15",
+    "webpack-dev-server": "^1.7.0"
+  },
+  "dependencies": {
+    "react": "^0.12.2"
+  }
 }
