@@ -1,6 +1,6 @@
 {
   "name": "react-stepper",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "It is like an UIStepper in iOS.",
   "main": "index.js",
   "scripts": {
