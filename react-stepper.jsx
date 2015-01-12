@@ -17,6 +17,11 @@ module.exports = React.createClass({
 			min: 0
 		}
 	},
+	propTypes: {
+		step: React.PropTypes.number.isRequired,
+		max: React.PropTypes.number.isRequired,
+		min: React.PropTypes.number.isRequired,
+	},
 	doAdd: function() {
 		this.setState({
 			value: this.state.value + this.props.step 
@@ -29,6 +34,30 @@ module.exports = React.createClass({
 	},
 	handleChange: function(e) {
 		console.log('change', e.target.value);
+		// 
+		this.setState({
+			value: e.target.value 
+		});
+	},
+	componentDidUpdate: function(prevProps, prevState) {
+		var val = parseFloat(this.state.value);
+		// check the new value is still a number
+		console.log('val', val)
+		if (isNaN(parseFloat(val)) || !isFinite(val)) {
+			console.log('not number')
+			console.log('prevState', prevState.value)
+			this.setState({
+				value: prevState.value 
+			});
+		}
+		// check the new value is smaller than Max
+		if (val > this.props.max) {
+			this.state.value = this.props.max;
+		}
+		// check the new value is bigger than min
+		if (val < this.props.min) {
+			this.state.value = this.props.min;
+		}
 	},
 	render: function(){
 		return (
