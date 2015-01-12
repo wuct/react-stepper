@@ -7,7 +7,8 @@ module.exports = React.createClass({
 	displayName: 'ReactStepper',
 	getInitialState: function() {
 		return {
-			value: 1
+			value: 1,
+			reachLimit: null
 		}
 	},
 	getDefaultProps: function() {
@@ -21,50 +22,53 @@ module.exports = React.createClass({
 		step: React.PropTypes.number.isRequired,
 		max: React.PropTypes.number.isRequired,
 		min: React.PropTypes.number.isRequired,
+		onValueChange: React.PropTypes.func,
+	},
+	convertToNumber: function(val) {
+		return 'number' === typeof val
+			? val
+			: Number(this.state.value);
 	},
 	doAdd: function() {
 		this.setState({
-			value: this.state.value + this.props.step 
+			value: this.convertToNumber(this.state.value) + this.props.step 
 		});
 	},
 	doMinus: function() {
 		this.setState({
-			value: this.state.value - this.props.step 
+			value: this.convertToNumber(this.state.value) - this.props.step 
 		});
 	},
 	handleChange: function(e) {
-		console.log('change', e.target.value);
-		// 
 		this.setState({
 			value: e.target.value 
 		});
 	},
 	componentDidUpdate: function(prevProps, prevState) {
-		var val = parseFloat(this.state.value);
-		// check the new value is still a number
-		console.log('val', val)
-		if (isNaN(parseFloat(val)) || !isFinite(val)) {
-			console.log('not number')
-			console.log('prevState', prevState.value)
-			this.setState({
-				value: prevState.value 
-			});
-		}
+		this.props.onValueChange && this.props.onValueChange(this.state.value, prevState.value);
+		var val = this.convertToNumber(this.state.value);
 		// check the new value is smaller than Max
 		if (val > this.props.max) {
-			this.state.value = this.props.max;
+			return this.setState({
+				value: this.props.max,
+				reachLimit: 'max' 
+			});
 		}
 		// check the new value is bigger than min
 		if (val < this.props.min) {
-			this.state.value = this.props.min;
+			return this.setState({
+				value: this.props.min,
+				reachLimit: 'min' 
+			});
 		}
+		this.state.reachLimit = null;
 	},
 	render: function(){
 		return (
 			<div>
-				<MinusBtn onClick={this.doMinus} />
+				<MinusBtn onClick={this.doMinus} disabled={this.state.reachLimit === "min"}/>
 				<NumberInput value={this.state.value} onChange={this.handleChange} />
-				<AddBtn onClick={this.doAdd} />
+				<AddBtn onClick={this.doAdd} disabled={this.state.reachLimit === "max"}/>
 			</div>
 		)
 	}
