@@ -1,7 +1,7 @@
 var React = require('react')
-var AddBtn = require('./src/add-btn.jsx');
-var MinusBtn = require('./src/minus-btn.jsx');
-var NumberInput = require('./src/number-input.jsx');
+var AddBtn = require('./add-btn.jsx');
+var MinusBtn = require('./minus-btn.jsx');
+var NumberInput = require('./number-input.jsx');
 
 module.exports = React.createClass({
 	displayName: 'ReactStepper',
